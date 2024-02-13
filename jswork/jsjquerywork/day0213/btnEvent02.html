@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../css/buttonStyle.css">
+    <title>Document</title>
+    <script>
+        function test1(a){
+            alert(a+100);
+        }
+
+        function test2(hello){
+            alert("문자열 "+hello+"를\n받았어요");
+        }
+
+        function test3(){
+            var ans=confirm("데이터를 추가할까요?");
+
+            if(ans){
+                document.getElementById("out").innerHTML="추가했어요";
+            }else{
+                document.getElementById("out").innerHTML="취소했어요";
+            }
+        }
+
+        // function test4(){
+        //     var area=prompt("당신이 사는 지역은 어디입니까");
+
+        //     if(area==null){
+        //         document.getElementById("out").innerHTML="취소했어요";
+        //     }else{
+        //         document.getElementById("out").innerHTML="제가 사는 지역은 "+area+"입니다";
+        //     }
+        // }
+
+        window.onload=function(){
+            document.getElementById("btn4").onclick=function(){
+                var city=prompt("당신이 사는 지역은 어디입니까?");
+
+                out.innerHTML="제가 사는 지역은 "+city.fontcolor("magenta")+"입니다";
+            }
+        }
+    </script>
+</head>
+<body>
+    <input type="button" value="alert" class="btn btn-pink" onclick="test1(100)">
+    <input type="button" value="alert" class="btn btn-green" onclick="test2('hello')">
+    <input type="button" value="confirm" class="btn btn-black" onclick="test3()">
+    <input type="button" value="prompt" class="btn btn-pink" id="btn4">
+
+    <div id="out">출력하는곳</div>
+</body>
+</html>
