@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <img src="../image/Food/1.jpg" id="myimg" width="200">
+    <hr>
+    <button type="button" onclick="attrTest()">사이즈 알아보기</button>
+    <hr>
+    <button type="button" onclick="photoLarge()">점점크게</button>
+    <button type="button" onclick="photoSmall()">점점작게</button>
+
+    <script>
+        function attrTest(){
+            var w=document.getElementById("myimg").getAttribute("width");
+
+            var src=document.getElementById("myimg").getAttribute("src")
+
+            alert(w+"\n"+src);
+        }
+
+        function photoLarge(){
+            var p=document.getElementById("myimg");
+            var w=p.getAttribute("width");
+            p.setAttribute("width",parseInt(w)+10);
+        }
+
+        function photoSmall(){
+            var p=document.getElementById("myimg");
+            var w=p.getAttribute("width");
+            p.setAttribute("width",parseInt(w)-10);
+        }
+    </script>
+</body>
+</html>
