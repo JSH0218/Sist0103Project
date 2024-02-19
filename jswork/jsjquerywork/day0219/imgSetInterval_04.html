@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script>
+        window.onload=function(){
+            //3초마다 연예인 사진이 바뀌게 하기
+            setInterval(() => {
+                document.getElementById("photo").setAttribute("src","../image/연예인사진/"+(parseInt(Math.random()*20)+1)+".jpg");
+            }, 3000);
+
+            //3초마다 메세지가 msgarr로 변하기
+            var msgarr=["아름다운 밤이에요","오늘은 비가 오네요","이제는 봄","내가좋아하는 연예인"];
+            var mcolorarr=["magenta","gray","green","cyan","orange","brown"]
+            setInterval(() => {
+                document.querySelector(".msg").style.color=mcolorarr[parseInt(Math.random()*6)];
+                document.querySelector(".msg").innerHTML=msgarr[parseInt(Math.random()*4)];
+            }, 3000);
+        }
+    </script>
+</head>
+<body>
+    <img src="../image/연예인사진/15.jpg" id="photo">
+    <div class="msg">메세지출력</div>
+</body>
+</html>
