@@ -120,5 +120,31 @@ public class quizDao {
 		
 		return dto;
 	}
+	
+	public void updateInfo(quizDto dto) {
+		Connection conn=db.getConnection();
+		PreparedStatement pstmt=null;
+		
+		String sql="update quizinfo set name=?, age=?, hp=?, driver=? where no=?";
+		
+		try {
+			pstmt=conn.prepareStatement(sql);
+			
+			//?바인딩
+			pstmt.setString(1, dto.getName());
+			pstmt.setString(2, dto.getAge());
+			pstmt.setString(3, dto.getHp());
+			pstmt.setString(4, dto.getDriver());
+			pstmt.setString(5, dto.getNo());
+			
+			//업데이트
+			pstmt.execute();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			db.dbClose(pstmt, conn);
+		}
+	}
 
 }

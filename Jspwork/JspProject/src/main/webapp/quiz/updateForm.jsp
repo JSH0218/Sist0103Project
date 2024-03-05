@@ -22,29 +22,30 @@
 			<tr>
 				<th class="table-warning">이름</th>
 				<td>
-					<input type="text" name="name" placeholder="이름" required="required" class="form-control">
+					<input type="text" name="name" placeholder="이름" required="required" class="form-control" value="<%=dto.getName()%>">
 				</td>
 			</tr>
 			<tr>
 				<th class="table-warning">나이</th>
 				<td>
-					<input type="text" name="age" placeholder="나이" required="required" class="form-control">
+					<input type="text" name="age" placeholder="나이" required="required" class="form-control" value="<%=dto.getAge()%>">
 				</td>
 			</tr>
 			<tr>
 				<th class="table-warning">핸드폰</th>
 				<td>
-					<input type="text" name="hp" placeholder="핸드폰" required="required" class="form-control">
+					<input type="text" name="hp" placeholder="핸드폰" required="required" class="form-control" value="<%=dto.getHp()%>">
 				</td>
 			</tr>
 			<tr>
 				<th class="table-warning">운전면허</th>
 				<td>
-					<input type="checkbox" name="driver">있음
+					<input type="checkbox" name="driver" <%=dto.getDriver() != null ? "checked" : "" %>>있음
 				</td>
 			</tr>
 			<tr>
 				<td colspan="2" align="center">
+					<input type="hidden" name="no" value="<%=no%>">
 					<input type="submit" value="수정" class="btn btn-outline-success">
 					<input type="button" value="목록" class="btn btn-outline-warning" onclick="location.href='list.jsp'">
 				</td>

@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Dongle&family=Gaegu&family=Nanum+Pen+Script&family=Noto+Sans+KR:wght@100..900&family=Noto+Serif+KR&display=swap" rel="stylesheet">
+<script src="https://code.jquery.com/jquery-3.7.0.js"></script>
+<title>Insert title here</title>
+	<style type="text/css">
+		ul li{
+			list-style: none;
+			width: 150px;
+			height: 50px;
+			text-align: center;
+			line-height: 50px;
+			border: 1px solid tomato;
+			margin: 5px;
+			float: left;
+			cursor: pointer;
+		}
+		
+		.bg1{
+			background-color: tomato;
+			color: #fff;
+		}
+	</style>
+	<script type="text/javascript">
+    $(document).ready(function() {
+        $("li").hover(function(){
+            $(this).addClass("bg1");
+        },function(){
+        	$(this).removeClass("bg1");
+        });
+        //첫번째 Home버튼 누르면 메인이미지 아무거나 하나 나오게
+        $("li:eq(0)").click(function(){
+        	$("#show").html("<img src='../image/만화이미지/01.png'>");
+        });
+        //두번째 Food버튼 누르면 json파일 가져오기(div or table)
+        $("li:eq(1)").click(function(){
+        	$.ajax({
+        		type:"get",
+        		url:"foodtojson.jsp",
+        		dataType:"json",
+        		success:function(data){
+        			var s="";
+        			
+        			$.each(data,function(i,ele){
+        				s+=ele.num+"<br>";
+        				s+=ele.foodname+"<br>";
+        				s+=ele.foodphoto+"<br>";
+        				s+=ele.price+"<br>";
+        				s+=ele.cnt+"<br>";
+        				s+="------------------------------<br>";
+        			});
+        			$("#show").html(s);
+        		}
+        	});
+        });
+        //세번째 Info버튼 누르면 xml파일 가져오기(div or table)
+        $("li:eq(2)").click(function(){
+        	$.ajax({
+        		type:"get",
+        		url:"infotoxml.jsp",
+        		dataType:"xml",
+        		success:function(data){
+        			var s="";
+        			
+        			$.each((data).find("info"),function(i,ele){
+        				s+=$(ele).find("num").text()+"<br>";
+        				s+=$(ele).find("name").text()+"<br>";
+        				s+=$(ele).find("hp").text()+"<br>";
+        				s+=$(ele).find("age").text()+"<br>";
+        				s+=$(ele).find("photo").text()+"<br>";
+        			});
+        			$("#show").html(s);
+        		}
+        	});
+        });
+    });
+	</script>
+</head>
+<body>
+	<ul>
+		<li>Home</li>
+		<li>Food</li>
+		<li>Info</li>
+	</ul>
+	
+	<div style="clear: both;"></div>
+	
+	<div id="show" style="margin-top:50px;"></div>
+</body>
+</html>

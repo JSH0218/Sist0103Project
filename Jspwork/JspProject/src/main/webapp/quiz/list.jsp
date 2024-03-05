@@ -48,5 +48,10 @@
 				</tr>
 			<%}
 		%>
+		<tr>
+			<td>
+				<button type="button" class="btn btn-info" onclick="location.href='insertForm.jsp'">입력폼</button>
+			</td>
+		</tr>
 	</table>
 </html>
