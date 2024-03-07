@@ -65,7 +65,7 @@
         		success:function(data){
         			var s="";
         			
-        			$.each((data).find("info"),function(i,ele){
+        			$(data).find("info").each(function(i,ele){
         				s+=$(ele).find("num").text()+"<br>";
         				s+=$(ele).find("name").text()+"<br>";
         				s+=$(ele).find("hp").text()+"<br>";
