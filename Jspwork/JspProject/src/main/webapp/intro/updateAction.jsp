@@ -1,3 +1,5 @@
+<%@page import="intro.model.IntroDao"%>
+<%@page import="intro.model.IntroDto"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -12,7 +14,8 @@
 <body>
 	<%
 		request.setCharacterEncoding("utf-8");
-	
+		
+		String num=request.getParameter("num");
 		String name=request.getParameter("name");
 		String age=request.getParameter("age");
 		String birthday=request.getParameter("birthday");
@@ -31,6 +34,7 @@
 		String memo=request.getParameter("memo");
 	
 		IntroDto dto=new IntroDto();
+		dto.setNum(num);
 		dto.setName(name);
 		dto.setAge(age);
 		dto.setBirthday(birthday);
@@ -39,9 +43,9 @@
 		dto.setMemo(memo);
 		
 		IntroDao dao=new IntroDao();
-		dao.insertIntro(dto);
+		dao.updateIntro(dto);
 		
-		response.sendRedirect("addForm.jsp");
+		response.sendRedirect("introList.jsp");
 	%>
 </body>
 </html>
