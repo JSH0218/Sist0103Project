@@ -21,7 +21,6 @@
 <body>
 	<div style="margin: 50px 100px; width: 1000px;">
 		<button type="button" class="btn btn-info" onclick="location.href='addForm.jsp'">게시글 추가</button>
-		<br><br>
 		<button type="button" class="btn btn-warning" onclick="location.href='boardList2.jsp'">앨범형 목록</button>
 		<h6 class="alert alert-info">총 <%=list.size() %>개의 게시글이 있습니다</h6>
 		<br><br>

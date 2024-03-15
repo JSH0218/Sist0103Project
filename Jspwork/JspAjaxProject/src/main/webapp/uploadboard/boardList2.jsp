@@ -19,29 +19,43 @@
 	SimpleDateFormat sdf=new SimpleDateFormat("yyyy-MM-dd");
 %>
 <body>
-	<b>전체글보기</b>
-	<br>
-	<span><%=list.size() %>개의 글</span>
-	<hr>
-	<div style="width: 700px; display: flex; flex-flow: wrap;">
-		<%
-			for(int i=0;i<list.size();i++){
-				UploadBoardDto dto=list.get(i);
-				%>
-				<div style="margin: 20px;">
-					<img src="../save/<%=dto.getImgname()%>" style="width: 75px; height: 100px;">
-					<br>
-					<%=dto.getSubject() %>
-					<br>
-					<%=dto.getWriter() %>
-					<br>
-					<%=sdf.format(dto.getWriteday()) %>
-					<br>
-					조회수: <%=dto.getReadcount() %>
-				</div>
+	<div style="margin: 200px 100px; width: 900px;">
+		<table class="table table-bordered">
+			<caption align="top">
+				<b>앨범형 목록보기</b>
+				<button type="button" class="btn btn-info" onclick="location.href='addForm.jsp'">글쓰기</button>
+			</caption>
+			<tr>
 				<%
-			}
-		%>
+					for(int i=0;i<list.size();i++){
+						UploadBoardDto dto=list.get(i);
+						%>
+						<td>
+							<a href="content.jsp?num=<%=dto.getNum()%>">
+								<img src="../save/<%=dto.getImgname() %>" style="width: 180px; height: 180px; border: 1px solid gray; margin: 5px;">
+								<br>
+								<%=dto.getSubject() %>
+							</a>
+							<br>
+							<span style="color: gray; font-size: 10pt;">
+								조회: <%=dto.getReadcount() %>
+								<%=sdf.format(dto.getWriteday()) %>
+								<br>
+								<%=dto.getWriter() %>
+							</span>
+							<br><br>
+						</td>
+						<%
+							if((i+1)%4==0){
+								%>
+								</tr>
+								<tr>
+								<%
+							}
+					}
+				%>
+			</tr>
+		</table>
 	</div>
 </body>
 </html>
