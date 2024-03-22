@@ -96,13 +96,14 @@ public class SimpleAnswerDao {
 		Connection conn=db.getConnection();
 		PreparedStatement pstmt=null;
 		
-		String sql="update simpleboardanswer set content=? where idx=?";
+		String sql="update simpleboardanswer set nickname=?, content=? where idx=?";
 		
 		try {
 			pstmt=conn.prepareStatement(sql);
 			
-			pstmt.setString(1, dto.getContent());
-			pstmt.setString(2, dto.getIdx());
+			pstmt.setString(1, dto.getNickname());
+			pstmt.setString(2, dto.getContent());
+			pstmt.setString(3, dto.getIdx());
 			
 			pstmt.execute();
 		} catch (SQLException e) {

@@ -110,13 +110,14 @@
 			
 			$("#ubtnsend").click(function(){
 				var idx=$(this).attr("idx");
+				var nickname=$("#unickname").val();
 				var content=$("#ucontent").val();
 
 				$.ajax({
 					type:"get",
 					url:"../simpleboardanswer/updateAnswer.jsp",
 					dataType:"html",
-					data:{"idx":idx,"content":content},
+					data:{"idx":idx,"nickname":nickname,"content":content},
 					success:function(){
 						list();
 						$("div.aform").show();
@@ -179,7 +180,7 @@
 			<tr>
 				<td>
 					<b class="acount">댓글<span>0</span></b>
-					<div class="alist">
+					<div class="alist" id="alist">
 						댓글목록
 					</div>
 					<div class="aform input-group">
