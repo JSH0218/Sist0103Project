@@ -18,11 +18,50 @@
 	rel="stylesheet">
 <script src="https://code.jquery.com/jquery-3.7.0.js"></script>
 <title>Insert title here</title>
+	<style type="text/css">
+		i.bi{
+			cursor: pointer;
+		}
+	</style>
+	<script type="text/javascript">
+		$(function(){
+			$("span.likes").click(function(){
+				var target=$(this);
+				$.ajax({
+					type:"get",
+					url:"memberguest/updateincrechu.jsp",
+					dataType:"json",
+					data:{"num":$(this).attr("num")},
+					success:function(res){
+						target.siblings(".chu").text(res.chu);
+						
+						//하트에 animate
+						target.siblings("i.bi-heart-fill").animate({"font-size":"10px"},1000,function(){
+							//애니메이션 끝난후
+							$(this).css("font-size","0px");
+						});
+					}
+				});
+			});
+			
+			//삭제
+			$("i.bi-trash").click(function(){
+				var num=$(this).attr("num");
+				var currentPage=$(this).attr("currentPage");
+
+				var yes=confirm("정말 삭제하시겠습니까?");
+				if(yes){
+					location="memberguest/delete.jsp?num="+num+"&currentPage="+currentPage;
+				}
+			});
+		});
+	</script>
 </head>
 <body>
 	<%
 	//로그인상태확인
 	String loginok = (String) session.getAttribute("loginok");
+	String myid=(String)session.getAttribute("myid");
 
 	if (loginok != null) {
 	%>
@@ -77,6 +116,14 @@
 
 	//페이지에서 보여질 글만 가져오기
 	List<GuestDto> list = dao.getList(startNum, perPage);
+	
+	if(list.size()==0 && currentPage!=1){
+		%>
+		<script type="text/javascript">
+			location.href="index.jsp?main=memberguest/guestlist.jsp?currentPage=<%=currentPage-1 %>";
+		</script>
+		<%
+	}
 
 	//List<SimpleBoardDto>list=dao.getAllDatas();
 	SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm");
@@ -98,8 +145,14 @@
 		%>
 		<div>
 			<div align="right">
-				<i class="bi bi-pencil-square fs-5"></i>
-				<i class="bi bi-trash fs-5"></i>
+			<%
+				if(loginok!=null && dto.getMyid().equals(myid)){
+					%>
+					<i class="bi bi-pencil-square fs-5" onclick="location.href='index.jsp?main=memberguest/updateform.jsp?num=<%=dto.getNum() %>&currentPage=<%=currentPage %>'"></i>
+					<i class="bi bi-trash fs-5 del" num=<%=dto.getNum() %> currentPage=<%=currentPage %>></i>
+					<%
+				}
+			%>
 			</div>
 			<table class="table table-bordered" style="width: 700px; height: 200px;">
 				<tr>
@@ -115,10 +168,23 @@
 						<%
 					} else{
 						%>
-						<td align="center"><img src="save/<%=dto.getPhotoname() %>" style="width: 100px; height: 100px;">
+						<td align="center">
+							<a href="save/<%=dto.getPhotoname() %>" target="_blank">
+								<img src="save/<%=dto.getPhotoname() %>" style="width: 100px; height: 100px;">
+							</a>
+						</td>
 						<%
 					}
 					%>
+				</tr>
+				<!-- 댓글 추천 -->
+				<tr>
+					<td colspan="2">
+						<span class="answer" style="cursor: pointer;">댓글 0</span>
+						<span class="likes" style="margin-left: 20px; cursor: pointer;" num=<%=dto.getNum() %>>추천</span>
+						<span class="chu"><%=dto.getChu() %></span>
+						<i class="bi bi-heart-fill" style="font-size: 0px; color: red;"></i>
+					</td>
 				</tr>
 			</table>
 		</div>
