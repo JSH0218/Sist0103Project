@@ -13,12 +13,10 @@
 <body>
 <!-- 관리자가 강퇴시키는 페이지 -->
 <%
-	String num=request.getParameter("num");
-	
-	MemberDao dao=new MemberDao();
-	dao.deleteMember(num);
-
-	response.sendRedirect("../index.jsp?main=member/memberlist.jsp");
+  String num=request.getParameter("num");
+  MemberDao dao=new MemberDao();
+  dao.deleteMember(num);
+  response.sendRedirect("../index.jsp?main=member/memberlist.jsp");
 %>
 </body>
 </html>

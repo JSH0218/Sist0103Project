@@ -1,4 +1,3 @@
-<%@page import="data.dao.MemberDao"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -11,9 +10,10 @@
 <title>Insert title here</title>
 </head>
 <body>
-	<%
-		session.removeAttribute("loginok");
-		response.sendRedirect("../index.jsp?main=login/loginmain.jsp");
-	%>
+  <%
+   session.removeAttribute("loginok");
+   session.removeAttribute("myid");
+   response.sendRedirect("../index.jsp?main=login/loginmain.jsp");
+  %>
 </body>
 </html>

@@ -10,19 +10,19 @@
 <title>Insert title here</title>
 </head>
 <%
-	//프로젝트 경로
-	String root=request.getContextPath();
+  //프로젝트 경로
+  String root=request.getContextPath();
 %>
 <body>
-	<img src="<%=root %>/image/banner.png" style="width: 1200px;">
-	<h3>주요 제품보기</h3>
-	<div style="width: 1200px; display: flex;">
-		<img src="<%=root %>/image/1.png" style="width: 50%;">
-		<img src="<%=root %>/image/2.webp" style="width: 50%;">
-	</div>
-	<div style="width: 1200px; display: flex;">
-		<img src="<%=root %>/image/3.webp" style="width: 50%;">
-		<img src="<%=root %>/image/4.webp" style="width: 50%;">
-	</div>
+   
+    <img alt="" src="<%=root %>/image/banner-02.png" style="width: 1080px;"><br><br>
+   
+    <h3>주요 제품 둘러보기</h3>
+    <br>
+    <img alt="" src="<%=root %>/image/1.png">
+    <img alt="" src="<%=root %>/image/6.png"><br>
+    <img alt="" src="<%=root %>/image/7.png">
+    <img alt="" src="<%=root %>/image/10.png">
+    
 </body>
 </html>

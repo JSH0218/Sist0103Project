@@ -9,27 +9,22 @@
 <script src="https://code.jquery.com/jquery-3.7.0.js"></script>
 <title>Insert title here</title>
 </head>
-<%
-	String id=request.getParameter("id");
-%>
 <body>
-	<div style="margin: 200px; 200px;">
-		<form action="member/updatepassaction.jsp" method="post">
-			<input type="hidden" name="id" value="<%=id %>">
-			<table class="table table-bordered" style="width: 200px;">
-				<caption align="top"><b>비밀번호 확인</b></caption>
-				<tr>
-					<td>
-						<input type="password" name="pass" class="form-control" required="required" placeholder="패스워드입력" style="width: 200px;">
-					</td>
-				</tr>
-				<tr>
-					<td>
-						<button type="submit" class="btn btn-success btn-lg" style="width: 200px;">확인</button>
-					</td>
-				</tr>
-			</table>
-		</form>
-	</div>
+<%
+  String num=request.getParameter("num");
+%>
+
+<div  style="margin: 100px 200px;">
+   <form action="member/updatepassaction.jsp" method="post">
+       <input type="hidden" name="num" value="<%=num%>">
+       <b>수정시 필요한 비밀번호를 입력해주세요</b>
+       <br><br>
+       <div class="d-inline-flex">
+           <input type="password" name="pass" class="form-control"
+           style="width: 150px;" required="required">
+           <button type="submit" class="btn btn-info" style="margin-left: 10px;">확인</button>
+       </div>
+   </form>
+</div>
 </body>
 </html>

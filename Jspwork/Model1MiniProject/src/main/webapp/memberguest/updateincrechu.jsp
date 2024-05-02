@@ -3,15 +3,15 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%
-	String num=request.getParameter("num");
+   //num읽기
+   String num=request.getParameter("num");
 
-	GuestDao dao=new GuestDao();
-	dao.updateChu(num);
-	
-	//증가된  chu값
-	int chu=dao.getData(num).getChu();
-	
-	JSONObject ob=new JSONObject();
-	ob.put("chu",chu);
+   GuestDao dao=new GuestDao();
+   dao.updateChu(num);
+   //증가된 chu값 
+   int chu=dao.getData(num).getChu();
+   
+   JSONObject ob=new JSONObject();
+   ob.put("chu", chu);
 %>
-<%=ob.toString() %>
+<%=ob.toString()%>
