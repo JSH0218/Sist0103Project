@@ -3,7 +3,7 @@ package simpleguest.model;
 import java.sql.Timestamp;
 
 public class GuestDto {
-	
+
 	private String num;
 	private String nickname;
 	private String pass;
@@ -47,6 +47,7 @@ public class GuestDto {
 	public void setWriteday(Timestamp writeday) {
 		this.writeday = writeday;
 	}
+	
 	
 	
 }

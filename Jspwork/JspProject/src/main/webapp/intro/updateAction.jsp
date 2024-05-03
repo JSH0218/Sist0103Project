@@ -14,8 +14,7 @@
 <body>
 	<%
 		request.setCharacterEncoding("utf-8");
-		
-		String num=request.getParameter("num");
+	
 		String name=request.getParameter("name");
 		String age=request.getParameter("age");
 		String birthday=request.getParameter("birthday");
@@ -34,7 +33,6 @@
 		String memo=request.getParameter("memo");
 	
 		IntroDto dto=new IntroDto();
-		dto.setNum(num);
 		dto.setName(name);
 		dto.setAge(age);
 		dto.setBirthday(birthday);
@@ -43,9 +41,9 @@
 		dto.setMemo(memo);
 		
 		IntroDao dao=new IntroDao();
-		dao.updateIntro(dto);
+		dao.insertIntro(dto);
 		
-		response.sendRedirect("introList.jsp");
+		response.sendRedirect("addForm.jsp");
 	%>
 </body>
 </html>

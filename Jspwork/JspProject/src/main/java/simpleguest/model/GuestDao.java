@@ -9,11 +9,12 @@ import java.util.ArrayList;
 import mysql.db.DbConnect;
 
 public class GuestDao {
-	
+
 	DbConnect db=new DbConnect();
 	
 	//추가
-	public void insertGuest(GuestDto dto) {
+	public void insertGuest(GuestDto dto)
+	{
 		Connection conn=db.getConnection();
 		PreparedStatement pstmt=null;
 		
@@ -31,15 +32,17 @@ public class GuestDao {
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-		} finally {
+		}finally {
 			db.dbClose(pstmt, conn);
 		}
+		
 	}
 	
+	
 	//전체목록
-	public ArrayList<GuestDto> getAllDatas(){
+	public ArrayList<GuestDto> getAllDatas()
+	{
 		ArrayList<GuestDto> list=new ArrayList<GuestDto>();
-		
 		Connection conn=db.getConnection();
 		PreparedStatement pstmt=null;
 		ResultSet rs=null;
@@ -50,7 +53,8 @@ public class GuestDao {
 			pstmt=conn.prepareStatement(sql);
 			rs=pstmt.executeQuery();
 			
-			while(rs.next()) {
+			while(rs.next())
+			{
 				GuestDto dto=new GuestDto();
 				
 				dto.setNum(rs.getString("num"));
@@ -65,17 +69,19 @@ public class GuestDao {
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-		} finally {
+		}finally {
 			db.dbClose(rs, pstmt, conn);
 		}
+		
 		
 		return list;
 	}
 	
+	
 	//num에 해당하는 dto반환
-	public GuestDto getData(String num) {
+	public GuestDto getData(String num)
+	{
 		GuestDto dto=new GuestDto();
-		
 		Connection conn=db.getConnection();
 		PreparedStatement pstmt=null;
 		ResultSet rs=null;
@@ -84,31 +90,32 @@ public class GuestDao {
 		
 		try {
 			pstmt=conn.prepareStatement(sql);
-			
 			pstmt.setString(1, num);
-			
 			rs=pstmt.executeQuery();
 			
-			while(rs.next()) {
+			if(rs.next())
+			{
 				dto.setNum(rs.getString("num"));
 				dto.setImage(rs.getString("image"));
-				dto.setNickname(rs.getString("nickname"));
-				dto.setPass(rs.getString("pass"));
 				dto.setContent(rs.getString("content"));
-				dto.setWriteday(rs.getTimestamp("writeday"));
+				dto.setNickname(rs.getString("nickname"));
+				
 			}
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-		} finally {
+		}finally {
 			db.dbClose(rs, pstmt, conn);
 		}
+		
+		
 		
 		return dto;
 	}
 	
-	//비밀번호가 맞으면 true 틀리면 false 반환
-	public boolean isEqulPass(String num,String pass) {
+	//비밀번호가 맞으면 true 틀리면false반환
+	public boolean isEqualPass(String num,String pass)
+	{
 		boolean flag=false;
 		
 		Connection conn=db.getConnection();
@@ -119,28 +126,31 @@ public class GuestDao {
 		
 		try {
 			pstmt=conn.prepareStatement(sql);
-			
 			pstmt.setString(1, num);
 			pstmt.setString(2, pass);
 			
 			rs=pstmt.executeQuery();
 			
-			if(rs.next()) {
+			if(rs.next())
+			{
 				flag=true; //맞으면 true로 수정
 			}
+			
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-		} finally {
+		}finally {
 			db.dbClose(rs, pstmt, conn);
 		}
+		
 		
 		return flag;
 	}
 	
-	//데이터 수정
-	public void updateGuest(GuestDto dto) {
-		//수정(닉네임,컨텐드,이미지)..비번은 맞을경우에만 호출할것이므로 조건에 안써도 됨
+	//데이타 수정
+	public void updateGuest(GuestDto dto)
+	{
+		//수정(닉네임,컨텐트,이미지)..비번은 맞을경우에만 호출할것이므로 조건에 안써도됨
 		Connection conn=db.getConnection();
 		PreparedStatement pstmt=null;
 		
@@ -158,28 +168,10 @@ public class GuestDao {
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-		} finally {
+		}finally {
 			db.dbClose(pstmt, conn);
 		}
+		
 	}
 	
-	public void deleteGuest(String num) {
-		Connection conn=db.getConnection();
-		PreparedStatement pstmt=null;
-		
-		String sql="delete from simpleguest where num=?";
-		
-		try {
-			pstmt=conn.prepareStatement(sql);
-			
-			pstmt.setString(1, num);
-			
-			pstmt.execute();
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} finally {
-			db.dbClose(pstmt, conn);
-		}
-	}
 }

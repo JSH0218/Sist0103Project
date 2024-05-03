@@ -127,7 +127,7 @@ public class IntroDao {
 		Connection conn=db.getConnection();
 		PreparedStatement pstmt=null;
 		
-		String sql="update intro set name=?, age=?, birthday=?, hometown=?, hobby=?, memo=? where num=?";
+		String sql="update from intro set name=?, age=?, birthday=?, hometown=?, hobby=?, memo=? where num=?";
 		
 		try {
 			pstmt=conn.prepareStatement(sql);
