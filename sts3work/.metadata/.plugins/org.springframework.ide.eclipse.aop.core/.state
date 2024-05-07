@@ -1,6 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <aop-reference-model>
+<aop-project name="SpringMvcFileUploadEx6"/>
+<aop-project name="SpringMvcUploadQuiz"/>
+<aop-project name="SpringMvcQuiz2"/>
+<aop-project name="SpringMvcFormEx5"/>
 <aop-project name="SpringMvcQuiz"/>
+<aop-project name="SpringMvcTest"/>
 <aop-project name="SpringTest"/>
 <aop-project name="SpringMvcEx3"/>
 <aop-project name="SpringMvcEx4"/>
