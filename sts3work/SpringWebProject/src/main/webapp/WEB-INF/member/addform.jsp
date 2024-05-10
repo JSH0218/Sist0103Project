@@ -38,33 +38,33 @@
 	</script>
 </head>
 <body>
-	<div style="margin: 100px 100px;">
+	<div style="margin: 100px 100px; width: 500px;">
 		<form action="insert" method="post">
 			<table class="table table-bordered">
-				<caption><b>회원가입</b></caption>
+				<caption align="top"><b>회원가입</b></caption>
 				<tr>
 					<th>회원명</th>
 					<td>
-						<input type="text" name="name" required="required" style="width: 130px;">
+						<input type="text" name="name" required="required" style="width: 130px;" class="form-control">
 					</td>
 				</tr>
 				<tr>
 					<th>아이디</th>
-					<td>
-						<input type="text" name="id" required="required" style="width: 130px;" id="id">
+					<td style="display: flex;">
+						<input type="text" name="id" required="required" style="width: 130px;" id="id" class="form-control">&nbsp;
 						<button type="button" class="btn btn-danger btn-sm" id="btncheck">중복체크</button>
 					</td>
 				</tr>
 				<tr>
 					<th>비밀번호</th>
 					<td>
-						<input type="password" name="pass" required="required" style="width: 130px;">
+						<input type="password" name="pass" required="required" style="width: 130px;" class="form-control">
 					</td>
 				</tr>
 				<tr>
 					<th>전화번호</th>
 					<td>
-						<input type="text" name="hp" required="required" style="width: 130px;">
+						<input type="text" name="hp" required="required" style="width: 130px;" class="form-control">
 					</td>
 				</tr>
 				<tr>

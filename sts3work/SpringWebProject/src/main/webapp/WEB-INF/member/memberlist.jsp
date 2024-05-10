@@ -39,8 +39,8 @@
 					<td>${list.hp }</td>
 					<td><fmt:formatDate value="${list.gaipday }" pattern="yyyy-MM-dd"/></td>
 					<td>
-						<button type="button" class="btn btn-warning btn-sm">수정</button>
-						<button type="button" class="btn btn-danger btn-sm">삭제</button>
+						<button type="button" class="btn btn-warning btn-sm" onclick="location.href='updateform?num=${list.num}'">수정</button>
+						<button type="button" class="btn btn-danger btn-sm" onclick="location.href='delete?num=${list.num}'">삭제</button>
 					</td>
 				</tr>
 			</c:forEach>

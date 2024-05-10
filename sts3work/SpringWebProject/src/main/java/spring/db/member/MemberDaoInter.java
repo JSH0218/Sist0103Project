@@ -11,4 +11,12 @@ public interface MemberDaoInter {
 	public List<MemberDto> selectMember();
 	
 	public int countMember();
+	
+	public MemberDto selectOneMember(String num);
+	
+	public int getPassCheck(String num, String pass);
+	
+	public void updateMember(MemberDto dto);
+	
+	public void deleteMember(String num);
 }
