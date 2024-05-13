@@ -22,4 +22,17 @@
 	<select id="selectPagingListOfMember" parameterType="HashMap" resultType="bdto">
 		select * from sboard order by num desc limit #{startNum},#{perPage}
 	</select>
+	<update id="updateOfBoard" parameterType="bdto">
+		update sboard set subject=#{subject}, content=#{content}
+		<if test="photo!=null">
+			, photo=#{photo}
+		</if>
+		where num=#{num}
+	</update>
+	<delete id="deleteOfBoard" parameterType="int">
+		delete from sboard where num=#{num}
+	</delete>
+	<select id="selectPhotoOfBoard" resultType="bdto">
+		select * from sboard where photo!="no" order by num desc
+	</select>
 </mapper>

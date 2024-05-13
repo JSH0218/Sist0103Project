@@ -2,8 +2,8 @@
 <aop-reference-model>
 <aop-project name="SpringDbTest"/>
 <aop-project name="SpringMvcJsonEx7"/>
-<aop-project name="SpringMvcFileUploadEx6"/>
 <aop-project name="SpringWebProject"/>
+<aop-project name="SpringMvcFileUploadEx6"/>
 <aop-project name="SpringMvcQuiz2"/>
 <aop-project name="SpringTest"/>
 <aop-project name="SpringMvcEx4"/>

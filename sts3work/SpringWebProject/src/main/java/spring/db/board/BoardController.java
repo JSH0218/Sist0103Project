@@ -144,5 +144,94 @@ public class BoardController {
 		
 		return "board/content";
 	}
+	
+	@GetMapping("/updateform")
+	public ModelAndView updateform(@RequestParam int num,
+			@RequestParam String currentPage) {
+		
+		ModelAndView model=new ModelAndView();
+		
+		BoardDto dto=dao.selectOneBoard(num);
+		
+		model.addObject("dto", dto);
+		model.addObject("currentPage", currentPage);
+		
+		model.setViewName("board/updateform");
+		
+		return model;
+	}
+	
+	@PostMapping("/update")
+	public String update(@ModelAttribute BoardDto dto,
+			@RequestParam ArrayList<MultipartFile> upload,
+			@RequestParam String currentPage,
+			HttpSession session) {
+		
+		String path=session.getServletContext().getRealPath("/WEB-INF/photo");
+		
+		String photo="";
+		
+		if(upload.get(0).getOriginalFilename().equals("")) {
+			
+			photo=null;
+		} else {
+			for(MultipartFile f:upload) {
+				
+				String fName=f.getOriginalFilename();
+				photo+=fName+",";
+				
+				try {
+					f.transferTo(new File(path+"/"+fName));
+				} catch (IllegalStateException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
+			
+			photo=photo.substring(0, photo.length()-1);
+		}
+		
+		dto.setPhoto(photo);
+		
+		dao.updateBoard(dto);
+		
+		int num=dto.getNum();
+		
+		return "redirect:content?num="+num+"&currentPage="+currentPage;
+	}
+	
+	@GetMapping("delete")
+	public String delete(@RequestParam int num,
+			@RequestParam String currentPage,
+			HttpSession session) {
+		
+		String photo=dao.selectOneBoard(num).getPhoto();
+		
+		if(!photo.equals("no")) {
+			
+			String []fName=photo.split(",");
+			
+			String path=session.getServletContext().getRealPath("/WEB-INF/photo");
+			
+			for(String f:fName) {
+				File file=new File(path+"/"+f);
+				file.delete();
+			}
+		}
+		
+		dao.deleteBoard(num);
+		
+		return "redirect:list?currentPage="+currentPage;
+	}
+	
+	@GetMapping("list2")
+	public String list2() {
+		
+		
+		return "board/ajaxlist";
+	}
 
 }

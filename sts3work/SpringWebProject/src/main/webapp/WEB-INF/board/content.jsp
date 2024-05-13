@@ -58,8 +58,8 @@
 				<td>
 					<button type="button" class="btn btn-outline-success" onclick="location.href='list?currentPage=${currentPage }'">목록</button>
 					<button type="button" class="btn btn-outline-info" onclick="location.href='addform'">글쓰기</button>
-					<button type="button" class="btn btn-outline-warning" onclick="location.href='updateform?num=${dto.num}$currentPage=${currentPage }'">수정</button>
-					<button type="button" class="btn btn-outline-danger" onclick="location.href='delete?num=${dto.num}$currentPage=${currentPage }'">삭제</button>
+					<button type="button" class="btn btn-outline-warning" onclick="location.href='updateform?num=${dto.num}&currentPage=${currentPage }'">수정</button>
+					<button type="button" class="btn btn-outline-danger" onclick="location.href='delete?num=${dto.num}&currentPage=${currentPage }'">삭제</button>
 				</td>
 			</tr>
 		</table>
