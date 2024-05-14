@@ -8,27 +8,36 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
+import spring.mvc.answerdata.AnswerDao;
 import spring.mvc.data.BoardDaoInter;
 import spring.mvc.data.BoardDto;
 
 @Controller
 public class BoardListController {
+
 	@Autowired
 	BoardDaoInter dao;
 	
+	@Autowired
+	AnswerDao adao;
+	
 	@GetMapping("/")
-	public String start() {
+	public String start()
+	{
 		return "redirect:board/list";
 	}
 	
 	@GetMapping("/board/list")
-	public ModelAndView list(@RequestParam(value="currentPage", defaultValue="1")int currentPage) {
+	public ModelAndView list(
+			@RequestParam(value = "currentPage",defaultValue = "1")int currentPage)
+	{
 		ModelAndView mview=new ModelAndView();
-		
 		int totalCount=dao.getTotalCount();
+		
 		int perPage=5; //한페이지당 보여질 글의 갯수
+		
 		int perBlock=5; //한블럭당 보여질 페이지 갯수
-		int startNum; //db에서 가져올 글의 시작번호(mysql은 첫글이0번,오라클은 1번);
+		int start; //db에서 가져올 글의 시작번호(mysql은 첫글이0번,오라클은 1번);
 		int startPage; //각블럭당 보여질 시작페이지
 		int endPage; //각블럭당 보여질 끝페이지
 		int totalPage; //총페이지수
@@ -51,21 +60,24 @@ public class BoardListController {
 
 		//각페이지에서 보여질 시작번호
 		//1페이지:0, 2페이지:5 3페이지: 10.....
-		startNum=(currentPage-1)*perPage;
+		start=(currentPage-1)*perPage;
 
 		//각페이지당 출력할 시작번호 구하기
 		//총글개수가 23  , 1페이지:23 2페이지:18  3페이지:13
 		no=totalCount-(currentPage-1)*perPage;
 
-		//각페이지당 출력할 시작번호 구하기
-		//총글개수가 23  , 1페이지:23 2페이지:18  3페이지:13
-		no=totalCount-(currentPage-1)*perPage;
+		//게시글가져오기
+		List<BoardDto> list=dao.getList(start, perPage);
 		
-		//게시글 가져오기
-		List<BoardDto> list=dao.getList(startNum, perPage);
+		//리스트에 각글에 대한 갯수 추가하기
+		for(BoardDto d:list)
+		{
+			d.setAcount(adao.getAnswerList(d.getNum()).size());
+		}
+		
 		
 		mview.addObject("totalCount", totalCount);
-		mview.addObject("list",list);
+		mview.addObject("list", list);  //댓글을 포함한 후 전달
 		mview.addObject("no", no);
 		mview.addObject("startPage", startPage);
 		mview.addObject("endPage", endPage);
@@ -73,7 +85,6 @@ public class BoardListController {
 		mview.addObject("totalPage", totalPage);
 		
 		mview.setViewName("board/boardlist");
-		
 		return mview;
 	}
 }

@@ -1,8 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE configuration PUBLIC "//mybatis.org//DTD Config 3.0//EN" "http://mybatis.org/dtd/mybatis-3-config.dtd" >
-<configuration>
-	<!--mapper에서 매칭할 parmeter Type 별칭 설정-->
-	<typeAliases>
-		<typeAlias type="spring.mvc.data.BoardDto" alias="bdto"/>
-	</typeAliases>
-</configuration>
+<!DOCTYPE configuration
+  PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-config.dtd">
+  <configuration>
+    <typeAliases>
+      <typeAlias type="spring.mvc.data.BoardDto" alias="bdto"/>
+      <typeAlias type="spring.mvc.answerdata.AnswerDto" alias="adto"/>
+    </typeAliases>
+  </configuration>

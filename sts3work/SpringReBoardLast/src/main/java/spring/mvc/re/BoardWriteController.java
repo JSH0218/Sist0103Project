@@ -23,13 +23,15 @@ import spring.mvc.data.BoardDto;
 
 @Controller
 public class BoardWriteController {
+
 	@Autowired
 	BoardDaoInter dao;
 	
-	//새글 답글 모두해당
+	//새글 답글 모두 해당
 	
 	@GetMapping("/board/writeform")
-	public ModelAndView form(@RequestParam Map<String, String> map) {
+	public ModelAndView form(@RequestParam Map<String, String> map)
+	{
 		ModelAndView mview=new ModelAndView();
 		
 		//아래 5개의 값은 답글일경우에만 넘어옴(새글은 안넘어옴)
@@ -39,7 +41,10 @@ public class BoardWriteController {
 		String restep=map.get("restep");
 		String relevel=map.get("relevel");
 		
+		System.out.println(currentPage+","+num);//null,null
+		
 		//입력폼에 hidden으로 넣어줘야함..답글일때를 대비
+		
 		mview.addObject("currentPage", currentPage==null?"1":currentPage);
 		mview.addObject("num", num==null?"0":num);
 		mview.addObject("regroup", regroup==null?"0":regroup);
@@ -50,28 +55,32 @@ public class BoardWriteController {
 		
 		
 		mview.setViewName("board/writeform");
-		
 		return mview;
 	}
 	
 	@PostMapping("/board/insert")
-	public String inset(@ModelAttribute BoardDto dto,
+	public String insert(@ModelAttribute BoardDto dto,
 			@RequestParam ArrayList<MultipartFile> upload,
-			HttpSession session) {
+			HttpSession session,
+			@RequestParam int currentPage)
+	{
 		String path=session.getServletContext().getRealPath("/WEB-INF/photo");
 		SimpleDateFormat sdf=new SimpleDateFormat("yyyyMMddHHmmss");
+		System.out.println(path);
 		
 		String photo="";
-		if(upload.get(0).getOriginalFilename().equals("")) {
+		if(upload.get(0).getOriginalFilename().equals(""))
 			photo="no";
-		}else {
-			for(MultipartFile f:upload) {
+		else {
+			
+			for(MultipartFile f:upload)
+			{
 				String fName=sdf.format(new Date())+f.getOriginalFilename();
 				photo+=fName+",";
 				
 				//업로드
 				try {
-					f.transferTo(new File(path+"/"+fName));
+					f.transferTo(new File(path+"\\"+fName));
 				} catch (IllegalStateException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
@@ -80,11 +89,18 @@ public class BoardWriteController {
 					e.printStackTrace();
 				}
 			}
-			photo=photo.substring(0,photo.length()-1);
+			
+			photo=photo.substring(0, photo.length()-1);
+			
 		}
+		
 		dto.setPhoto(photo);
 		dao.insertBoard(dto);
 		
-		return "redirect:list";
+		
+		//인서트후 목록으로 가지말고 내용보기로 가려면?
+		int num=dao.getMaxNum();
+		
+		return "redirect:content?num="+num+"&currentPage="+currentPage;
 	}
 }

@@ -9,9 +9,10 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public class BoardDao implements BoardDaoInter {
+
 	@Autowired
 	private SqlSession session;
-
+	
 	@Override
 	public int getTotalCount() {
 		// TODO Auto-generated method stub
@@ -28,7 +29,6 @@ public class BoardDao implements BoardDaoInter {
 	public void updateRestep(int regroup, int restep) {
 		// TODO Auto-generated method stub
 		HashMap<String, Integer> map=new HashMap<String, Integer>();
-		
 		map.put("regroup", regroup);
 		map.put("restep", restep);
 		
@@ -38,20 +38,22 @@ public class BoardDao implements BoardDaoInter {
 	@Override
 	public void insertBoard(BoardDto dto) {
 		// TODO Auto-generated method stub
-		int num=dto.getNum(); //0:새글	1보다 큰값: 답글
+		int num=dto.getNum(); //0:새글   1보다 큰값: 답글
 		int regroup=dto.getRegroup();
 		int restep=dto.getRestep();
 		int relevel=dto.getRelevel();
 		
-		if(num==0) {
+		if(num==0)
+		{
 			regroup=getMaxNum()+1;
 			restep=0;
 			relevel=0;
-		}else {
+		}else { //답글일때
+			
 			//같은 그룹중 전달받은 restep보다 큰글들은 +1
 			this.updateRestep(regroup, restep);
 			
-			//전달받은 step, level +1
+			//전달받은 step level +1
 			restep++;
 			relevel++;
 		}
@@ -65,12 +67,12 @@ public class BoardDao implements BoardDaoInter {
 	}
 
 	@Override
-	public List<BoardDto> getList(int startNum, int perPage) {
+	public List<BoardDto> getList(int start, int perpage) {
 		// TODO Auto-generated method stub
 		HashMap<String, Integer> map=new HashMap<String, Integer>();
 		
-		map.put("startNum", startNum);
-		map.put("perPage", perPage);
+		map.put("start", start);
+		map.put("perpage", perpage);
 		
 		return session.selectList("SelectPagingListOfBoard", map);
 	}
@@ -84,7 +86,30 @@ public class BoardDao implements BoardDaoInter {
 	@Override
 	public BoardDto getOneData(int num) {
 		// TODO Auto-generated method stub
-		return session.selectOne("getDateOfBoard", num);
+		return session.selectOne("getDataOfBoard", num);
+	}
+
+	@Override
+	public int getCheckPass(int num, int pass) {
+		// TODO Auto-generated method stub
+		
+		HashMap<String, Integer> map=new HashMap<String, Integer>();
+		map.put("num", num);
+		map.put("pass", pass);
+		
+		return session.selectOne("CheckEqualPassOfBoard", map);
+	}
+
+	@Override
+	public void updateBoard(BoardDto dto) {
+		// TODO Auto-generated method stub
+		session.update("UpdateOfBoard", dto);
+	}
+
+	@Override
+	public void deleteBoard(int num) {
+		// TODO Auto-generated method stub
+		session.delete("DeleteOfBoard", num);
 	}
 
 }
