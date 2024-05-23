@@ -1,0 +1,20 @@
+spring:
+  application:
+    name: MybatisThymeleafQuiz
+  #mysql
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/tea
+    username: angel
+    password: a1234
+  #thymeleaf  
+  thymeleaf:
+    cache: false
+#tomcat port
+server:
+  port: 9001
+#mybatis
+mybatis:
+  type-aliases-package: product.dto
+  mapper-locations:
+  - /mapper/**/*.xml
